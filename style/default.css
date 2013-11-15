@@ -1,0 +1,251 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #666;
+	background: #272020;
+	font: 76% arial, "Trebuchet MS", tahoma, helvetica, sans-serif;
+}
+
+a { /* All undefined links */
+	color: #099;
+}
+
+a:hover {
+	color: #000;
+}
+
+#wrapper { /* Body container */
+	width: 960px;
+	margin: 20px auto;
+}
+
+#main { /* Container holding posts */
+	float: left;
+	width: 697px;
+}
+
+#nav {
+	width: 697px;
+	height: 26px;
+	margin-bottom: 2px;
+}
+
+#nav ul { /* Top Nav menu */
+	margin: 0;
+	padding: 0;
+	width: auto;
+	float: right;
+	height: 26px;
+	list-style: none;
+	margin-right: 5px;
+}
+
+#nav li { /* Listing in Nav menu */
+	float: left;
+	margin: 0 2px 0 0;
+}
+
+#nav a { /* All links in Nav menu */
+	color: #666;
+	height: 28px;
+	display: block;
+	padding: 0 15px;
+	line-height: 28px;
+	text-decoration: none;
+	border: 1px dotted #666;
+	border-bottom: 0;
+}
+
+#nav a:hover { /* Hovering links in Nav menu */
+	color: #999;
+	background: #333;
+}
+
+#header { /* Header container */
+	clear: both;
+	width: 697px;
+	height: 40px;
+	color: #1b1414;
+	background: url("../images/header.png") no-repeat;
+}
+
+#header h1 {
+	margin: 0;
+	padding: 0;
+	padding-left: 45px;
+	font: normal 2em georgia, arial, helvetica, sans-serif;
+}
+
+#header h1 a {
+	color: #714d00;
+	line-height: 40px;
+	text-decoration: none;
+}
+
+#content {
+	margin: 20px 0;
+}
+
+.top {
+	margin: 0;
+	padding: 0;
+	height: 21px;
+	font-size: 0;
+	background: url("../images/top.png") no-repeat;
+}
+
+.sides {
+	margin: 0;
+	padding: 1px 10px;
+	background: url("../images/sides.png") repeat-y;
+}
+
+.bottom {
+	font-size: 0;
+	height: 18px;
+	background: url("../images/bottom.png") no-repeat;
+}
+
+#content h1 {
+	margin: 0;
+	padding: 0;
+	color: #000;
+	text-indent: 10px;
+	font: normal 2em/2em georgia, arial, sans-serif;
+}
+
+#content img {
+	float: left;
+	padding: 2px;
+	margin: 0 10px;
+	border: 1px dotted #666;
+}
+
+blockquote {
+	width: 590px;
+	padding: 0 5px;
+	background: #111;
+	margin: 10px auto;
+	border: 1px dotted #666;
+}
+blockquote a:hover{
+	color:#b4a5a5;
+}
+
+#header blockquote {
+	width: 350px;
+	padding: 0px;
+	background: none;
+	margin: 20px 10px 0 0;
+	height: 16px;
+	border: none;
+	float:right;
+	color: #666666;
+    font: 50% arial,"Trebuchet MS",tahoma,helvetica,sans-serif;
+	text-align: right;
+	vertical-align: baseline;
+}
+
+
+#content h2 {
+	margin: 0;
+	padding: 0;
+	color: #000;
+	text-indent: 10px;
+	font: 1.7em/1.7em georgia, arial, sans-serif;
+}
+
+#content li {
+	/*width: 300px;*/
+	width:95%;
+	line-height: 1.7em;
+	letter-spacing: 1px;
+}
+
+#r_column { /* Container holding Right column */
+	width: 250px;
+	float: right;
+	height: 568px;
+	background: url("../images/robot.png") no-repeat;
+}
+
+#footer { /* Footer & copyright text */
+	color: #333;
+	clear: both;
+	width: 697px;
+	margin: 10px 0 0;
+	text-align: center;
+}
+
+#footer a { /* Links in footer */
+	color: #666;
+}
+
+.clear { /* Clears floats when needed */
+	clear: both;
+}
+
+form {
+    margin: 0 auto;
+    width: 99%;
+    padding: 0 0 0 10px;
+}
+
+form h3 {
+	margin:0 0 5px 0;
+	padding:0;
+}
+
+form p {
+    font-size: 11px;
+    color: #666666;
+    margin-bottom: 5px;
+    border-bottom: solid 2px #272020;
+    padding-bottom: 5px;
+	margin-top:0px;
+	padding-top:0px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    text-align: right;
+    width: 140px;
+    float: left;
+}
+
+form .small {
+    color: #666666;
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: right;
+    width: 140px;
+}
+
+form input,textarea,checkbox {
+    float: left;
+    font-size: 12px;
+    padding: 4px 2px;
+    border: solid 1px #aacfe4;
+    width: 400px;
+    margin: 2px 0 20px 10px;
+	border: none;
+}
+
+form button {
+    clear: both;
+    margin-left: 150px;
+    width: 125px;
+    height: 25px;
+    background: url(../images/button.png);
+    text-align: center;
+    color: #714d00;
+    font-size: 13px;
+    font-weight: bold;
+	border: dashed 1px;
+}

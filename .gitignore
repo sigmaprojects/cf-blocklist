@@ -1,9 +1,14 @@
+#cf-blocklist
+tmp/*
+output/*
+
 #Railo
-.WEB-INF/
+WEB-INF/
 
 #Eclipse stuff
 *.pydevproject
 .metadata
+.project
 .gradle
 bin/**
 tmp/**
