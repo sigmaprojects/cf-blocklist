@@ -64,37 +64,30 @@ component output=false {
 				variables.maintainService.populate( variables.listService.get(title) );
 			}
 			var tmplist = application.listCache[title].getList();
-			ArrayAppend(stringListArray,tmplist);
+			//ArrayAppend(stringListArray,tmplist);
+			stringListArray.addAll(tmplist);
 		}
 
-		if( arguments.CIDR ) {
 
-			for(var x=1; x lte arrayLen(stringListArray); x++) {
-				if( isArray(stringListArray[x]) ) {
-					
-					for(var i=1; i lte arrayLen(stringListArray[x]); i++) {
-						
-						var IPRange = stringListArray[x][i];
-						
-						if( isSimpleValue(stringListArray[x][i]) && ListLen(stringListArray[x][i],'-') eq 2 ) {
-							var IP1 = listFirst(stringListArray[x][i],'-');
-							var IP2 = listLast(stringListArray[x][i],'-');
-							try {
-								var ipCIDR = variables.RangeToCidr.range2cidrlist(IP1,IP2);
-								stringListArray[x][i] = ipCIDR;
-							} catch(any e) {
-							}
-							
-						} else {
-							arrayDeleteAt(stringListArray[x],i);
-						}
-						
+		if( arguments.CIDR ) {
+			for( var i=1; i lte arrayLen(stringListArray); i++ ) {
+				if( isSimpleValue(stringListArray[i]) && ListLen(stringListArray[i],'-') eq 2 ) {
+					var IP1 = listFirst(stringListArray[i],'-');
+					var IP2 = listLast(stringListArray[i],'-');
+					try {
+						var ipCIDR = variables.RangeToCidr.range2cidrlist(IP1,IP2);
+						stringListArray[i] = ipCIDR;
+					} catch(any e) {
+						i--;
+						arrayDeleteAt(stringListArray,i);
 					}
-					
+				} else {
+					i--;
+					arrayDeleteAt(stringListArray,i);
 				}
 			}
 		}
-				
+		
 		var stringList = stringListArray.toString();
 			// random fix string stuff 
 			stringList = ReplaceNoCase(stringList,'[','','all');
