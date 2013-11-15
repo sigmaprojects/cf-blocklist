@@ -1,12 +1,32 @@
-# unpacked plugin folders
-plugins/**/*
+#Railo
+.WEB-INF/
 
-# files directory where uploads go
-files
+#Eclipse stuff
+*.pydevproject
+.metadata
+.gradle
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
 
-# DBMigrate plugin: generated SQL
-db/sql
+# External tool builders
+.externalToolBuilders/
 
-# AssetBundler plugin: generated bundles
-javascripts/bundles
-stylesheets/bundles
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+# TeXlipse plugin
+.texlipse
