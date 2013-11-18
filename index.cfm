@@ -75,7 +75,7 @@
 								Would give you a combined drop, zues, and spyware list, change as you see fit.  
 								Be aware, if I consider your requests as abusive, you'll be blocked.  So keep it down to twice a day.
 								<p>
-									<a href="http://svn.sigmaprojects.org:8443/svn/blocklist/" target="_blank">Source</a> - Just a lil scary.
+									<a href="https://github.com/sigmaprojects/cf-blocklist" target="_blank">Source</a> - Just a lil scary.
 								</p>
 								
 							</p>
