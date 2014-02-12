@@ -43,7 +43,7 @@ jQuery("#list2").jqGrid({
 	width: $(document).width()-120,
    	colNames:['ID','IP', 'Lists', 'Size','Date'],
    	colModel:[
-   		{name:'reqid',index:'id', width:'10%', sorttype:"int"},
+   		{name:'reqid',index:'reqid', width:'10%', sorttype:"int"},
    		
 		{name:'ipaddr',index:'ipaddr', width:'20%'},
 		

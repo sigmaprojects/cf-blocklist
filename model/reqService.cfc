@@ -23,31 +23,81 @@ rows:20
 page:1
 sidx:lists
 sord:asc
-$responce->page = $page; $responce->total = $total_pages; $responce->records = $count;
-	*/
+searchField:ipaddr
+searchString:127.0.0.1
+searchOper:cn
+eq	equal
+ne	not equal
+lt	less
+le	less or equal
+gt	greater
+ge	greater or equal
+in	is in
+ni	is not in	
+cn	contains
+nc	does not contain
+*/
 	
 	public struct function search(
-		Numeric		Rows		= 50,
-		Numeric		Page		= 1,
-		String		sidx		= 'created',	// the column to sort by
-		String		sord		= 'desc'		// the sort direction
+		Numeric		Rows			= 50,
+		Numeric		Page			= 1,
+		String		sidx			= 'created',	// the column to sort by
+		String		sord			= 'desc'		// the sort direction
+		String		searchField		= '',
+		String		searchString	= '',
+		String		searchOper		= ''
 	) {
 		if( !Len(trim(arguments.sidx)) ) {
 			arguments.sidx = 'created';
 		}
 		var offset = (arguments.Page-1)*arguments.rows;
 		var results = StructNew();
-		var requests = ORMExecuteQuery("FROM req ORDER BY #arguments.sidx# #arguments.sord#", false, {offset=offset, maxresults=arguments.rows, timeout=50});
+		var requests = [];
+		
+		var searchOperArray = ['eq','ne','lt','le','gt','ge','in','ni','cn','nc'];
+		var searchFieldArray = ['reqid','ipaddr','lists','bytesize','created'];
+		var sordArray = ['asc','desc'];
+		
+		if(
+			Len(trim(arguments.searchString)) &&
+			arrayContains(searchOperArray,arguments.searchOper) &&
+			arrayContains(searchFieldArray,arguments.searchField) && 
+			cgi.remote_addr contains '192.168.1.'
+		) {
+			
+			var str = trim(arguments.searchString);
+			switch(arguments.searchOper) {
+				case 'eq': { var op = '='; break; }
+				case 'ne': { var op = '!='; break; }
+				case 'lt': { var op = '<'; break; }
+				case 'le': { var op = '<='; break; }
+				case 'gt': { var op = '>'; break; }
+				case 'ge': { var op = '>='; break; }
+				case 'cn': { var op = 'LIKE'; str = '%' & str & '%'; break; }
+				case 'nc': { var op = 'NOT LIKE'; str = '%' & str & '%'; break; }
+			}
+			if( !arguments.searchField contains 'reqid' ) {
+				str = "'" & str & "'";
+			}
+			
+			requests = ORMExecuteQuery("FROM req WHERE #arguments.searchField# #op# #str# ORDER BY #arguments.sidx# #arguments.sord#", false, {offset=offset, maxresults=arguments.rows, timeout=50});
+			
+		} else if( arrayContains(searchFieldArray,arguments.sidx) && arrayContains(sordArray,arguments.sord) ) {
+			requests = ORMExecuteQuery("FROM req ORDER BY #arguments.sidx# #arguments.sord#", false, {offset=offset, maxresults=arguments.rows, timeout=50});
+		} else {
+			requests = ORMExecuteQuery("FROM req", false, {offset=offset, maxresults=arguments.rows, timeout=50});
+		}
+		
+		
 		var rows = [];
 		for(var req in requests) {
 			arrayAppend(rows,req.toJSON());
 		}
 		results['rows'] = rows;
-		
 		results['page'] = arguments.page;
 		results['total'] = ormExecuteQuery("select count(id) from req", true)/arguments.rows;
 		results['records'] = arrayLen(rows);
-		
+
 		return results;
 	}
 
