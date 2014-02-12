@@ -17,6 +17,39 @@
 	public array function list(filter={},sort='',options={}) {
 		return EntityLoad('req', arguments.filter, arguments.sort, arguments.options); 
 	}
+	
+	/*
+rows:20
+page:1
+sidx:lists
+sord:asc
+$responce->page = $page; $responce->total = $total_pages; $responce->records = $count;
+	*/
+	
+	public struct function search(
+		Numeric		Rows		= 50,
+		Numeric		Page		= 1,
+		String		sidx		= 'created',	// the column to sort by
+		String		sord		= 'desc'		// the sort direction
+	) {
+		if( !Len(trim(arguments.sidx)) ) {
+			arguments.sidx = 'created';
+		}
+		var offset = (arguments.Page-1)*arguments.rows;
+		var results = StructNew();
+		var requests = ORMExecuteQuery("FROM req ORDER BY #arguments.sidx# #arguments.sord#", false, {offset=offset, maxresults=arguments.rows, timeout=50});
+		var rows = [];
+		for(var req in requests) {
+			arrayAppend(rows,req.toJSON());
+		}
+		results['rows'] = rows;
+		
+		results['page'] = arguments.page;
+		results['total'] = ormExecuteQuery("select count(id) from req", true)/arguments.rows;
+		results['records'] = arrayLen(rows);
+		
+		return results;
+	}
 
 	public void function delete(required req) {
 		EntityDelete(arguments.req);

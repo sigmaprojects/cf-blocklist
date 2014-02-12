@@ -35,10 +35,13 @@
 
 	<cffunction name="OnRequestStart" access="public" returntype="boolean" output="true" hint="Fires when a request starts.">
 		<cfargument name="Page" type="string" required="true" hint="The user-requested template." />
+		<cfif structKeyExists(url,'fwreinit')>
+			<cfset OnApplicationStart() />
+		</cfif>
 		<cfif structKeyExists(url,'reindex')>
 			<cfset application.maintainService.index() />
 		</cfif>
-		<cfif structKeyExists(url,'fwreinit')>
+		<cfif structKeyExists(url,'ormreload')>
 			<cfset ORMReload() />
 		</cfif>
 		<cfreturn true />

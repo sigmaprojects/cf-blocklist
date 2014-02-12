@@ -108,6 +108,18 @@ component output=false {
 		return binary;
 	}
 
+	remote struct function getRequests(
+		Numeric		Rows		= 50,
+		Numeric		Page		= 1,
+		String		sidx		= 'created',	// the column to sort by
+		String		sord		= 'desc'		// the sort direction
+	) returnFormat="json" output=false {
+		var requests = application.reqService.search(argumentCollection=arguments);
+		return requests;
+		//return serializeJson(requests);
+	}
+
+
 
 
 }
