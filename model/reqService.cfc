@@ -55,7 +55,7 @@ nc	does not contain
 		var requests = [];
 		
 		var searchOperArray = ['eq','ne','lt','le','gt','ge','in','ni','cn','nc'];
-		var searchFieldArray = ['reqid','ipaddr','lists','bytesize','created'];
+		var searchFieldArray = ['reqid','ipaddr','lists','bytesize','created','useragent'];
 		var sordArray = ['asc','desc'];
 		
 		if(

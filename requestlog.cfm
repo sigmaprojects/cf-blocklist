@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>My First Grid</title>
+<title>Blocklist Request Log</title>
 
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 <!---
@@ -41,17 +41,19 @@ jQuery("#list2").jqGrid({
 	datatype: "json",
 	height: $(document).height()-120,
 	width: $(document).width()-120,
-   	colNames:['ID','IP', 'Lists', 'Size','Date'],
+   	colNames:['ID','IP','U-Agent','Lists', 'Size','Date'],
    	colModel:[
-   		{name:'reqid',index:'reqid', width:'10%', sorttype:"int"},
+   		{name:'reqid',index:'reqid', width:'5%', sorttype:"int"},
    		
-		{name:'ipaddr',index:'ipaddr', width:'20%'},
+		{name:'ipaddr',index:'ipaddr', width:'10%'},
+		
+		{name:'useragent',index:'useragent', width:'20%'},
 		
 		{name:'lists',index:'lists', width:'30%'},
 		
-		{name:'sizeconvert',index:'bytesize', width:'10%'},
+		{name:'sizeconvert',index:'bytesize', width:'7%'},
 		
-		{name:'date',index:'created', width:'20%', sorttype:"date"}
+		{name:'date',index:'created', width:'10%', sorttype:"date"}
    	],
 	rowNum:50,
 	sortname: 'created',

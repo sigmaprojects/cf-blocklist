@@ -100,6 +100,7 @@ component output=false {
 		var req = new model.req();
 			req.setLists(arguments.lists);
 			req.setIpaddr(cgi.REMOTE_ADDR);
+			req.setuseragent(cgi.http_user_agent);
 			req.setCreated(Now());
 			variables.reqService.save(req);
 			//ugly hack to apease application.cfc
