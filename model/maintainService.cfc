@@ -3,13 +3,17 @@ component {
 	public any function init(required downloadService, required listService) {
 		variables.downloadService = arguments.downloadService;
 		variables.listService = arguments.listService;
+		variables.cacheName = "listcache";
+		variables.scheduleUrl = 'https://blocklist.sigmaprojects.org/?reindex=true&requestTimeout=1200';
+		variables.interval = 43200; // in seconds: 43200 seconds is 12 hour
+		verifyScheduler();
 	}
 	
 	public void function index() {
 		var list = variables.listService.list();
-		for(var item in list) {
-			populate(item);
-		}
+		list.each( function(list) {
+			populate(list);
+		}, true ); // multi-thread this shiz
 	}
 	
 	public void function populate(required list) {
@@ -30,7 +34,7 @@ component {
 		arguments.list.setEntries( ArrayLen(cleanArray) );
 		variables.listService.save( arguments.list );
 
-		updateApplicationListCache(list);
+		cacheList(list);
 
 		createFile(arguments.list);
 	}
@@ -53,10 +57,31 @@ component {
 		return result;
 	}
 	
-	private void function updateApplicationListCache(required list) {
-		lock scope="application" type="exclusive" timeout="30" throwontimeout="false" {
-			application.listCache[ arguments.list.getTitle() ] = arguments.list;
+	public any function getListCache(Required String Title) {
+		if( listCacheExists(arguments.Title) ) {
+			return cacheGet(
+				key			= trim(arguments.Title),
+				cacheName	= variables.cacheName
+			); 
+		} else {
+			populate( variables.listService.get(title) );
 		}
+		return cacheGet(
+			key			= trim(arguments.Title),
+			cacheName	= variables.cacheName
+		); 
+	}
+	
+	public boolean function listCacheExists(Required String Title) {
+		return cachekeyexists( key=trim(arguments.Title), cacheName=variables.cacheName );
+	}
+	
+	private void function cacheList(Required list) {
+		cachePut(
+			key			= list.getTitle(),
+			value		= list.getList(),
+			cacheName	= variables.cacheName
+		);
 	}
 
 
@@ -71,6 +96,10 @@ component {
 		FileWrite(application.outputPath & arguments.list.getTitle() & '.gz', binary);
 	}
 
+
+	private void function verifyScheduler() {
+		schedule action="update" startDate="#Now()#" startTime="00:00:01" interval="#variables.interval#" url="#variables.scheduleUrl#" task="Reindex_Lists" requesttimeout="1200";
+	}
 
 	
 }

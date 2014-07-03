@@ -8,7 +8,7 @@
 		</title>
 		<meta http-equiv="Expires" content="0"/>
 		<link rel="stylesheet" type="text/css" href="style/default.css" media="screen"/>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("#addlist-form").submit(function(){
@@ -47,7 +47,7 @@
 				</div>
 				<div id="header">
 					<h1>
-						<a href="http://blocklist.sigmaprojects.org">
+						<a href="https://blocklist.sigmaprojects.org">
 							IP Blocklist
 						</a>
 						<blockquote>
@@ -71,8 +71,9 @@
 							<p>
 								You <i>can</i> use this as well.  Feel free to use the below links, or ask our api to 
 								combine selected lists into a single download.
-								<a href="http://blocklist.sigmaprojects.org/api.cfc?method=getlist&lists=drop,zeus,spyware">http://blocklist.sigmaprojects.org/api.cfc?method=getlist&lists=drop,zeus,spyware</a>
-								Would give you a combined drop, zues, and spyware list, change as you see fit.  
+								<a href="https://blocklist.sigmaprojects.org/api.cfc?method=getlist&lists=drop,zeus,spyware">https://blocklist.sigmaprojects.org/api.cfc?method=getlist&lists=drop,zeus,spyware</a>
+								Would give you a combined drop, zues, and spyware list, change as you see fit.
+								If you need the returned lists to be in a range format, instead of the default CIDR, you can pass the URL paramter "&CIDR=false".  
 								Be aware, if I consider your requests as abusive, you'll be blocked.  So keep it down to twice a day.
 								<p>
 									<a href="https://github.com/sigmaprojects/cf-blocklist" target="_blank">Source</a> - Just a lil scary.
@@ -117,7 +118,7 @@
 							<div class="sides">
 								<form id="addlist-form" name="form" method="post">
 									<h3>Add a list</h3>
-									<p>Want to add a list?  <a href="http://www.sigmaprojects.org/contact/" target="_blank">Contact us</a> for an Api Key</p>
+									<p>Want to add a list?  <a href="https://www.sigmaprojects.org/contact/" target="_blank">Contact us</a> for an Api Key</p>
 
 									<label>Title <span class="small">The name/title of the list</span></label>
 									<input type="text" name="title" id="title" />
@@ -152,7 +153,7 @@
 				</div>
 				<div id="footer">
 					<p>
-						<a href="http://www.sigmaprojects.org">
+						<a href="https://www.sigmaprojects.org">
 							&copy; Sigma Projects
 						</a>
 						&nbsp; (Designed by:<a href="http://www.asimpletemplate.com" target="_blank">aSimpleTemplate.com</a>)

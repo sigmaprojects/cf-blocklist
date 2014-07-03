@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteCond %{REMOTE_ADDR} !^192\.168\.1\..*
+RewriteRule ^/railo-context/admin/(.*) - [F]
+
+RewriteCond %{REMOTE_ADDR} !^192\.168\.!\..*
+RewriteRule ^/securelocation/(.*) /railo-context/admin/$1 [PT]
+

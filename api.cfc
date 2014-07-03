@@ -59,12 +59,10 @@ component output=false {
 		if(arguments.lists == '*') {
 			requestArray = variables.listService.getAllIDs();
 		}
+		
+		
 		for(var title in requestArray) {
-			if(!StructKeyExists(application.listCache,title) and !IsNull(EntityLoadByPk('list', title))) {
-				variables.maintainService.populate( variables.listService.get(title) );
-			}
-			var tmplist = application.listCache[title].getList();
-			//ArrayAppend(stringListArray,tmplist);
+			var tmplist = application.maintainService.getListCache(title);
 			stringListArray.addAll(tmplist);
 		}
 
