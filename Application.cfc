@@ -1,6 +1,6 @@
 ﻿component output="false" hint="Sets up the application and defines top level event handlers." {
 
-	THIS.Name = "Blocklist";
+	THIS.Name = "Blocklist-15";
 	THIS.ApplicationTimeout = CreateTimeSpan( 30, 0, 0, 1 );
 	
 	THIS.Mappings[ "/Blocklist" ] = ExpandPath('./');
@@ -17,8 +17,8 @@
 	public boolean function OnApplicationStart() {
 		application.apiCache = {};
 		application.listCache = {};
-		application.tmpPath = expandPath('/tmp/');
-		application.outputPath = ExpandPath('/output/');
+		application.tmpPath = expandPath('./tmp/');
+		application.outputPath = ExpandPath('./output/');
 		application.RangeToCidr = CreateObject("java", "RangeToCidr", "/javalib/RangeToCidr.jar");
 		application.authService = new model.authService();
 		application.listService = new model.listService();
@@ -26,7 +26,7 @@
 		application.downloadService = new model.downloadService(application.zipService);
 		application.maintainService = new model.maintainService(application.downloadService,application.listService);
 		application.reqService = new model.reqService(); 
-		application.api = new api();  
+		application.api = new api();
 		return true;
 	}
 
@@ -71,12 +71,15 @@
 		Required Struct methodArguments
 	) {
 
-
-		if( !structKeyExists(application.apiCache, arguments.cfc) ) {
+		if( !structKeyExists(application.apiCache, arguments.cfc) && !arguments.cfc contains "requestlog" ) {
 			application.apiCache[arguments.cfc] = createObject("component", arguments.cfc).init();
 		}
 
-		local.cfc = application.apiCache[arguments.cfc];
+		if( arguments.cfc contains "requestlog" ) {
+			local.cfc = createObject("component", arguments.cfc).init();
+		} else {
+			local.cfc = application.apiCache[arguments.cfc];
+		}
 
 		local['result'] = '';
 		
@@ -97,7 +100,8 @@
 		if( structKeyExists(local, "result") ) {
 			if( ((url.returnFormat eq "json") && !structKeyExists(url, "callback")) ) {
 				local.responseData = serializeJSON(local.result);
-				local.responseMimeType = "text/x-json";
+				//local.responseMimeType = "text/x-json";
+				local.responseMimeType = "application/json";
 			} else if( url.returnFormat eq "json" && structKeyExists(url, "callback") ) {
 				local.responseData = ("#url.callback#(" & serializeJSON(local.result) & ");");
 				local.responseMimeType = "text/javascript";
@@ -126,11 +130,11 @@
 			req.setByteSize( arrayLen(local.binaryResponse) );
 			application.reqService.save(req);
 		}
-		
+
 		header name="content-disposition" value="attachment; filename=return.#local.responseExtension#";
 		header name="content-length" value="#arrayLen( local.binaryResponse )#";
 
-		content type="#local.responseMimeType#" variable="#local.binaryResponse#";
+		content type="#local.responseMimeType#;charset=utf-8" variable="#local.binaryResponse#";
 		return;
 	}
 }

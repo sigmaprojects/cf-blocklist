@@ -35,8 +35,8 @@ component table="requests" persistent="true" {
 		var data = {};
 		data['reqid']		= getreqid();
 		data['ipaddr']		= getipaddr();
-		data['useragent']	= getuseragent();
-		data['lists']		= getlists();
+		data['useragent']	= HTMLEditFormat(getuseragent());
+		data['lists']		= HTMLEditFormat(getlists());
 		data['bytesize']	= getbytesize();
 		data['sizeconvert']	= getSizeConvert();
 		data['created']		= getcreated();

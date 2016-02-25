@@ -18,6 +18,11 @@
 		return EntityLoad('req', arguments.filter, arguments.sort, arguments.options); 
 	}
 	
+	public numeric function count() {
+		var countQuery = new Query(datasource='blocklistprovider',sql="SELECT COUNT(1) as totalcount FROM requests").execute().getResult();
+		return countQuery.totalcount;
+	}
+	
 	/*
 rows:20
 page:1
@@ -42,7 +47,7 @@ nc	does not contain
 		Numeric		Rows			= 50,
 		Numeric		Page			= 1,
 		String		sidx			= 'created',	// the column to sort by
-		String		sord			= 'desc'		// the sort direction
+		String		sord			= 'desc',		// the sort direction
 		String		searchField		= '',
 		String		searchString	= '',
 		String		searchOper		= ''
@@ -51,7 +56,7 @@ nc	does not contain
 			arguments.sidx = 'created';
 		}
 		var offset = (arguments.Page-1)*arguments.rows;
-		var results = StructNew();
+		var results = {};
 		var requests = [];
 		
 		var searchOperArray = ['eq','ne','lt','le','gt','ge','in','ni','cn','nc'];
@@ -95,7 +100,7 @@ nc	does not contain
 		}
 		results['rows'] = rows;
 		results['page'] = arguments.page;
-		results['total'] = ormExecuteQuery("select count(id) from req", true)/arguments.rows;
+		results['total'] = ormExecuteQuery("select count(id) from req", true);//arguments.rows;
 		results['records'] = arrayLen(rows);
 
 		return results;

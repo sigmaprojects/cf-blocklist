@@ -4,16 +4,16 @@ component {
 		variables.downloadService = arguments.downloadService;
 		variables.listService = arguments.listService;
 		variables.cacheName = "listcache";
-		variables.scheduleUrl = 'https://blocklist.sigmaprojects.org/?reindex=true&requestTimeout=1200';
+		variables.scheduleUrl = 'https://blocklist.sigmaprojects.org/?reindex=true&requestTimeout=8000';
 		variables.interval = 43200; // in seconds: 43200 seconds is 12 hour
 		verifyScheduler();
 	}
 	
 	public void function index() {
-		var list = variables.listService.list();
-		list.each( function(list) {
+		var lists = variables.listService.list();
+		for(var list in lists) {
 			populate(list);
-		}, true ); // multi-thread this shiz
+		}
 	}
 	
 	public void function populate(required list) {

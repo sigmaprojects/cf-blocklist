@@ -1,6 +1,9 @@
 <cfif structKeyExists(url,'getRequests')>
-	<cfset requests = application.reqService.search( argumentCollection=url ) />
-	<cfcontent type="application/json;charset=utf-8" variable="#toBinary( toBase64( serializeJson(requests) ) )#"/>
+<cfset requests = application.reqService.search( argumentCollection=url ) />
+<cfcontent type="application/json; charset=utf-8" variable="#toBinary( toBase64( serializeJson(requests) ) )#"/><cfabort>
+<!---
+<cfcontent type="application/json;charset=utf-8" variable="#toBinary( toBase64( serializeJson(requests) ) )#"/>
+--->
 </cfif>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -37,7 +40,7 @@
 jQuery("#list2").jqGrid({
 	//datatype: "local",
 	//url:'/api.cfc?method=getRequests',
-	url:'/requestlog.cfm?getRequests=true',
+	url:'/requestlog.cfc?getRequests=true&method=getRequests&returnFormat=plain',
 	datatype: "json",
 	height: $(document).height()-120,
 	width: $(document).width()-120,

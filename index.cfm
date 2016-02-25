@@ -52,7 +52,7 @@
 						</a>
 						<blockquote>
 							<cfoutput>
-							List requests served to date: #ArrayLen(application.reqService.list())#
+							List requests served to date: #application.reqService.count()#
 							&nbsp; &nbsp; 
 							Totalling #application.reqService.getTotalByteSize()#
 							</cfoutput> 
