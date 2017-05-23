@@ -1,0 +1,14 @@
+{
+    "app":{
+        "cfengine":"lucee@5.2.1.9"
+    },
+    "web":{
+        "host":"192.168.1.41",
+        "rewrites":{
+            "enable":true
+        },
+        "http":{
+            "port":"8003"
+        }
+    }
+}
