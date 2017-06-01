@@ -10,5 +10,6 @@
         "http":{
             "port":"8003"
         }
-    }
+    },
+    "openbrowser":false
 }

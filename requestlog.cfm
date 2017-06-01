@@ -28,6 +28,8 @@
  
 </head>
 <body>
+<cfoutput>#cgi.REMOTE_ADDR#</cfoutput>
+<cfdump var='#cgi#' />
 
 
 <table id="list2"></table>

@@ -1,10 +1,20 @@
 ﻿component output="false" hint="Sets up the application and defines top level event handlers." {
 
-	THIS.Name = "Blocklist-15";
+	THIS.Name = "Blocklist-16";
 	THIS.ApplicationTimeout = CreateTimeSpan( 30, 0, 0, 1 );
 	
 	THIS.Mappings[ "/Blocklist" ] = ExpandPath('./');
 	THIS.Mappings[ "/model" ] = ExpandPath('./model/');
+	this.datasources["blocklistprovider"] = {
+		  class: 'org.gjt.mm.mysql.Driver'
+		, connectionString: 'jdbc:mysql://192.168.1.75:3306/blocklistprovider?useUnicode=true&characterEncoding=UTF-8&tinyInt1isBit=true&autoReconnect=true&jdbcCompliantTruncation=true&useOldAliasMetadataBehavior=true&allowMultiQueries=false&useLegacyDatetimeCode=true'
+		, username: 'blocklist'
+		, password: "encrypted:2c2efe7d083b7edf5050bd0ffbe656e86202640cd045db71f1f788190fcb0b53a8b3be7fdbffc8d53b8e23727070c0ca"
+		
+		// optional settings
+		, blob:true // default: false
+		, clob:true // default: false
+	};
 	THIS.datasource='blocklistprovider';
 	THIS.ormenabled = true;
 	THIS.ormsettings = {
@@ -15,6 +25,7 @@
 
 	
 	public boolean function OnApplicationStart() {
+		application.dsn = THIS.datasource;
 		application.apiCache = {};
 		application.listCache = {};
 		application.tmpPath = expandPath('./tmp/');
