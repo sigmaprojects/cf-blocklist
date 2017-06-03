@@ -3,7 +3,7 @@
         "cfengine":"lucee@5.2.1.9"
     },
     "web":{
-        "host":"192.168.1.41",
+        "host":"192.168.1.43",
         "rewrites":{
             "enable":true
         },
