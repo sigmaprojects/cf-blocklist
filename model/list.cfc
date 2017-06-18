@@ -1,4 +1,4 @@
-component table="list" persistent="true" {
+component table="list" persistent="true" accessors="true" {
 
 
 	property name="title"		type="string"	ormtype="string"	length="30"		notnull="true"	fieldtype="id"	generator="assigned";
@@ -16,6 +16,10 @@ component table="list" persistent="true" {
 			return ArrayNew(1);
 		}
 		return variables.list;
+	}
+
+	public any function setUpdated(d) {
+		variables.updated = arguments.d;
 	}
 
 

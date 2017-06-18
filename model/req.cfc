@@ -1,4 +1,4 @@
-component table="requests" persistent="true" {
+component table="requests" persistent="true" accessors="true"  {
 
 
 	property name="reqid"		type="numeric"	ormtype="int"   	notnull="true"	fieldtype="id"	generator="native";

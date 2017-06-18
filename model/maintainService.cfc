@@ -28,7 +28,7 @@ component {
 				ArrayAppend(cleanArray,trim(range));
 			}
 		}
-		
+
 		arguments.list.setList( cleanArray );
 		arguments.list.setUpdated( Now() );
 		arguments.list.setEntries( ArrayLen(cleanArray) );
