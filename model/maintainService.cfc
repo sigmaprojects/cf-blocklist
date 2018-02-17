@@ -4,7 +4,7 @@ component {
 		variables.downloadService = arguments.downloadService;
 		variables.listService = arguments.listService;
 		variables.cacheName = "listcache";
-		variables.scheduleUrl = 'https://blocklist.sigmaprojects.org/?reindex=true&requestTimeout=8000';
+		variables.scheduleUrl = 'http://192.168.1.43:8003/?reindex=true&requestTimeout=8000';
 		variables.interval = 43200; // in seconds: 43200 seconds is 12 hour
 		verifyScheduler();
 	}
@@ -33,6 +33,10 @@ component {
 		arguments.list.setUpdated( Now() );
 		arguments.list.setEntries( ArrayLen(cleanArray) );
 		variables.listService.save( arguments.list );
+
+		ormFlush();
+
+		arguments.list = variables.listService.get( arguments.list.getTitle() );
 
 		cacheList(list);
 
